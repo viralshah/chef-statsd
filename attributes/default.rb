@@ -8,3 +8,4 @@ default["statsd"]["address"]        = "0.0.0.0"
 default["statsd"]["port"]           = 8125
 default["statsd"]["graphite_host"]  = "localhost"
 default["statsd"]["graphite_port"]  = 2003
+default["statsd"]["gossip_girl"]    = nil

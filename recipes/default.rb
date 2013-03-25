@@ -21,7 +21,8 @@ template "#{node["statsd"]["conf_dir"]}/config.js" do
     :port           => node["statsd"]["port"],
     :flush_interval => node["statsd"]["flush_interval"],
     :graphite_port  => node["statsd"]["graphite_port"],
-    :graphite_host  => node["statsd"]["graphite_host"]
+    :graphite_host  => node["statsd"]["graphite_host"],
+    :gossip_girl    => node["statsd"]["gossip_girl"]
   )
   notifies :restart, "service[statsd]"
 end
@@ -45,6 +46,14 @@ when "rhel","fedora"
       :log_file         => node["statsd"]["log_file"]
     )
   end
+end
+
+# installing the gossip_girl backend from https://github.com/wanelo/gossip_girl
+# this backend aggregates stats (just like statsd) but forwards them to another
+# 'downstream' statsd instance.
+cookbook_file "#{node['statsd']['dir']}/backends/gossip_girl.js" do
+  source "gossip_girl.js"
+  mode "0644"
 end
 
 user "statsd" do

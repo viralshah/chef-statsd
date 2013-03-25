@@ -1,6 +1,16 @@
 {
+  <% if @gossip_girl -%>
+  "backends": [ './backends/gossip_girl' ],
+  "gossip_girl": [
+    {
+      "host": "<%= (@gossip_girl.is_a?(Hash) && @gossip_girl['host']) || @graphite_host -%>",
+      "port": <%= (@gossip_girl.is_a?(Hash) && @gossip_girl['port']) || '8125' %>
+    }
+  ],
+  <% else %>
   "graphitePort": <%= @graphite_port %>,
   "graphiteHost": "<%= @graphite_host %>",
+  <% end %>
   "address": "<%= @address %>",
   "port": <%= @port %>,
   "flushInterval": <%= @flush_interval %>
