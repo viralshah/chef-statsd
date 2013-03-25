@@ -4,6 +4,7 @@ include_recipe "logrotate"
 
 git node["statsd"]["dir"] do
   repository node["statsd"]["repository"]
+  revision node["statsd"]["revision_tag"]
   action :sync
   notifies :restart, "service[statsd]"
 end
