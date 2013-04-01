@@ -17,12 +17,17 @@ template "#{node["statsd"]["conf_dir"]}/config.js" do
   mode "0644"
   source "config.js.erb"
   variables(
-    :address        => node["statsd"]["address"],
-    :port           => node["statsd"]["port"],
-    :flush_interval => node["statsd"]["flush_interval"],
-    :graphite_port  => node["statsd"]["graphite_port"],
-    :graphite_host  => node["statsd"]["graphite_host"],
-    :gossip_girl    => node["statsd"]["gossip_girl"]
+    :address           => node["statsd"]["address"],
+    :port              => node["statsd"]["port"],
+    :flush_interval    => node["statsd"]["flush_interval"],
+    :graphite_port     => node["statsd"]["graphite_port"],
+    :graphite_host     => node["statsd"]["graphite_host"],
+    :gossip_girl       => node["statsd"]["gossip_girl"],
+    :delete_idle_stats => node["statsd"]["delete_idle_stats"],
+    :delete_gauges     => node["statsd"]["delete_gauges"],
+    :delete_timers     => node["statsd"]["delete_timers"],
+    :delete_sets       => node["statsd"]["delete_sets"],
+    :delete_counters   => node["statsd"]["delete_counters"]
   )
   notifies :restart, "service[statsd]"
 end
